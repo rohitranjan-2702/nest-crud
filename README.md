@@ -1,73 +1,63 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+### Setup
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+1. clone the repository.
+2. Navigate to the project directory:
+   ```bash
+   cd nest-crud
+   ```
+3. Start a PostgreSQL database using Docker:
+   ```bash
+   docker run -d \
+       --name testdb \
+       -e POSTGRES_USER=testuser \
+       -e POSTGRES_PASSWORD=testpassword \
+       -e POSTGRES_DB=testdatabase \
+       -p 5432:5432 \
+       postgres
+   ```
+   based on this command the connection url will be
+   ```
+   DATABASE_URL=postgresql://testuser:testpassword@localhost:5432/testdatabase?schema=public
+   ```
+4. Create a `.env` file based on the `.env.example` file and configure the `DATABASE_URL` with your postgreSQL connection string.
+5. Install dependencies:
+   ```bash
+   npm install
+   ```
+6. Run database migrations:
+   ```bash
+   npx prisma generate
+   ```
+7. Start the development server:
+   ```bash
+   npm run start:dev
+   ```
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Usage
 
-## Description
+- GET `https://localhost:3000/user` -> Get all users
+- GET `https://localhost:3000/user/:id` -> Get user by id
+- POST `https://localhost:3000/user` -> Create a user
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
+```json
+{
+  "username": "user12",
+  "email": "test@test.com"
+}
 ```
 
-## Running the app
+- PATCH `https://localhost:3000/user/:id` -> Update user
+- DELETE `https://localhost:3000/user/:id` -> Delete user
 
-```bash
-# development
-$ npm run start
+---
 
-# watch mode
-$ npm run start:dev
+All same for wallet
 
-# production mode
-$ npm run start:prod
+- POST `https://localhost:3000/wallet` -> Create a wallet address
+
+```json
+{
+  "address": "address12-11-22",
+  "userId": "user12"
+}
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
